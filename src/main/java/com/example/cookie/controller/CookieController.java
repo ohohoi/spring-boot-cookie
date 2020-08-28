@@ -3,6 +3,7 @@ package com.example.cookie.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.Cookie;
@@ -14,32 +15,15 @@ public class CookieController {
     @GetMapping("/get/cookies")
     public String cookies(HttpServletRequest request,
                           HttpServletResponse response,
-                          ModelMap modelMap) {
+                          ModelMap modelMap,
+                          @CookieValue(value = "visitCount",
+                                       defaultValue = "0",
+                                       required = true) String cookieValue) {
 
-        Cookie[] cookies = request.getCookies();
-        String cookieValue = null;
-        boolean hasVisitCountCookie = false;
-
-        //check has cookies
-        if (cookies != null) {
-            //check has visitCount cookie
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("visitCount")) {
-                    hasVisitCountCookie = true;
-                    cookieValue = cookie.getValue();
-                }
-            }
-        }
-
-        if (hasVisitCountCookie) {
-            try {
-                int i = Integer.parseInt(cookieValue);
-                cookieValue = Integer.toString(++i);
-            }catch(Exception ex) {
-                cookieValue = "1";
-            }
-        }
-        else {
+        try {
+            int i = Integer.parseInt(cookieValue);
+            cookieValue = Integer.toString(++i);
+        }catch(Exception ex) {
             cookieValue = "1";
         }
 
