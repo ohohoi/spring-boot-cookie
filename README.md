@@ -1,6 +1,10 @@
 # 🍪 Spring에서 쿠키 사용해보기
 
 ## 사용자의 방문 횟수를 브라우저에 쿠키로 저장하고 보여주기
+
+<img width="545" alt="스크린샷 2020-09-02 오후 6 04 57" src="https://user-images.githubusercontent.com/59954574/91961940-d7120f00-ed46-11ea-8c4a-a5936cb958a0.png">
+
+
 - @CookieValue Annotation 활용
 ``` JAVA
 @CookieValue(value = "visitCount", defaultValue = "0", required = true) String cookieValue
